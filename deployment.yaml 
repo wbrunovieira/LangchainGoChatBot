@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: langchain-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: langchain-service
+  template:
+    metadata:
+      labels:
+        app: langchain-service
+    spec:
+      containers:
+      - name: langchain-service
+        image: langchain-service:latest
+        ports:
+        - containerPort: 8080

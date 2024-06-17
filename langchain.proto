@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package langchain;
+
+option go_package = "langchainGoChatBot/langchain";
+
+// Definição do serviço gRPC
+service LangchainService {
+    // Exemplo de um método de serviço
+    rpc ExampleMethod (ExampleRequest) returns (ExampleResponse);
+}
+
+// Definição das mensagens de solicitação e resposta
+message ExampleRequest {
+    string message = 1;
+}
+
+message ExampleResponse {
+    string response = 1;
+}
