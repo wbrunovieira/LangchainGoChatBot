@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package langchain;
 
-option go_package = "langchainGoChatBot/langchain";
+option go_package = "langchainGoChatBot/gen/pb-go/langchainGoChatBot/langchain";
 
 // Definição do serviço gRPC
 service LangchainService {

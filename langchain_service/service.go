@@ -2,12 +2,12 @@ package langchain_service
 
 import (
 	"context"
+	pb "langchainGoChatBot/gen/pb-go/langchainGoChatBot/langchain"
 	"log"
 	"net"
 
-	pb "langchainGoChatBot/protobuf"
-
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type server struct {
@@ -15,17 +15,24 @@ type server struct {
 }
 
 func (s *server) ExampleMethod(ctx context.Context, req *pb.ExampleRequest) (*pb.ExampleResponse, error) {
-	return &pb.ExampleResponse{Response: "Hello " + req.Message}, nil
+	response := "Hello, " + req.GetMessage()
+	return &pb.ExampleResponse{Response: response}, nil
+}
+
+func RegisterGRPCServer(s *grpc.Server) {
+	pb.RegisterLangchainServiceServer(s, &server{})
+	reflection.Register(s)
 }
 
 func Start(ctx context.Context) error {
-	lis, err := net.Listen("tcp", ":8080")
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		return err
 	}
-	grpcServer := grpc.NewServer()
-	pb.RegisterLangchainServiceServer(grpcServer, &server{})
 
-	log.Println("Langchain service is running on port 8080")
-	return grpcServer.Serve(lis)
+	s := grpc.NewServer()
+	RegisterGRPCServer(s)
+
+	log.Println("Starting gRPC server on port :50051...")
+	return s.Serve(lis)
 }

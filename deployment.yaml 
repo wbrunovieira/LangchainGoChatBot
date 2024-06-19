@@ -14,6 +14,19 @@ spec:
     spec:
       containers:
       - name: langchain-service
-        image: langchain-service:latest
+        image: <your-dockerhub-username>/langchain-service:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 50051
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: langchain-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 50051
+    targetPort: 50051
+  selector:
+    app: langchain-service

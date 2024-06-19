@@ -2,9 +2,8 @@ package main
 
 import (
 	"context"
-	"log"
-
 	"langchainGoChatBot/langchain_service"
+	"log"
 )
 
 func main() {

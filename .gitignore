@@ -1,0 +1,3 @@
+.env
+commands.md
+docker run --rm -v $(pwd):/workspace -w /workspace namely/protoc-all -i . -f langchain.proto -l go --with-ggrpc
